@@ -41,36 +41,34 @@ form.addEventListener('submit', event => {
   loader.classList.remove('disabled');
   //console.log('Loader active:', loader.classList);
 
-  setTimeout(() => {
-    fetchImages(query)
-      .then(data => {
-        //console.log('API Data:', data);
+  fetchImages(query)
+    .then(data => {
+      //console.log('API Data:', data);
 
-        if (data.hits.length === 0) {
-          iziToast.warning({
-            title: 'No Results',
-            message: 'No images found for your query.',
-          });
-          clearCardContainer(cardContainer); // Clear the cardContainer if no results
-          return;
-        }
-
-        const markup = createMarkup(data.hits);
-        renderMarkup(cardContainer, markup); // Render markup into the list
-
-        lightbox.refresh(); // Refresh lightbox for new elements
-      })
-      .catch(error => {
-        console.error('Error fetching images:', error);
-        iziToast.error({
-          title: 'Error',
-          message: `Failed to fetch images: ${error.message}`,
+      if (data.hits.length === 0) {
+        iziToast.warning({
+          title: 'No Results',
+          message: 'No images found for your query.',
         });
-      })
-      .finally(() => {
-        // Hide loader
-        loader.classList.add('disabled');
-        //console.log('Loader disabled:', loader.classList);
+        clearCardContainer(cardContainer); // Clear the cardContainer if no results
+        return;
+      }
+
+      const markup = createMarkup(data.hits);
+      renderMarkup(cardContainer, markup); // Render markup into the list
+
+      lightbox.refresh(); // Refresh lightbox for new elements
+    })
+    .catch(error => {
+      console.error('Error fetching images:', error);
+      iziToast.error({
+        title: 'Error',
+        message: `Failed to fetch images: ${error.message}`,
       });
-  }, 2000);
+    })
+    .finally(() => {
+      // Hide loader
+      loader.classList.add('disabled');
+      //console.log('Loader disabled:', loader.classList);
+    });
 });
