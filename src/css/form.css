@@ -65,7 +65,7 @@ label {
   flex-wrap: wrap;
 }
 .img-card {
-  width: calc((100% - 3 * 10px) / 4);
+  width: calc((100% - 2 * 10px) / 3);
   border: solid 2px #808080;
   border-radius: 8px;
 }
